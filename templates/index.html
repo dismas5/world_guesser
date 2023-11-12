@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Continent Names</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Name the countries!</h1>
+    <form action="/guesser" method="post">
+        <label for="continentSelect">Select a Continent:</label>
+        <select id="continentSelect" name="selectedContinent">
+            <option value="" disabled selected>Select a continent</option>
+            {% for name in continent_names %}
+                <option value="{{ name }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

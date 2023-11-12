@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Country Guesser</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='guesser.css') }}">
+</head>
+<body>
+    <h1>Country Guesser</h1>
+    <p>Guess the country!</p>
+
+    <p id="counter">{{ count }}/{{ country_count }}</p>
+
+    <form action="/guesser" method="post">
+        <input type="text" name="guessInput" placeholder="Enter your guess">
+        <button type="submit">Submit Guess</button>
+    </form>
+
+    {% if guess %}
+        {% if guess in countries_list %}
+            <p class="correct">Your guess was correct!</p>
+        {% else %}
+            <p class="incorrect">Your guess was incorrect.</p>
+        {% endif %}
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- Button to return to the main page -->
+    <a href="{{ url_for('index') }}">
+        <button id="homeButton">Return to Main Page</button>
+    </a>
+
+    <script src="{{ url_for('static', filename='guess.js') }}"></script>
+</body>
+</html>
